@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  id:
+    image: "${APP_SLUG}/${SVC_NAME}-id:latest"
+    ports:
+      - 3999
+    restart: always
+    environment:
+      - SVC_NAME=${SVC_NAME}
+      - EPOCH=${EPOCH}
+  test:
+    depends_on:
+      - id
+    image: "${APP_SLUG}/${SVC_NAME}-test:latest"
+    restart: always

@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  id:
+    image: "${APP_SLUG}/${SVC_NAME}-id-dev:latest"
+    ports:
+      - 3999
+    volumes:
+      - ${PWD}/${SVC_NAME}-id/src:/usr/src/app/src
+      - id_dist:/usr/src/app/dist
+      - id_nm_cache:/usr/src/app/node_modules
+    restart: always
+    environment:
+      - SVC_NAME=${SVC_NAME}
+      - EPOCH=${EPOCH}
+  test:
+    depends_on:
+      - id
+    image: "${APP_SLUG}/${SVC_NAME}-test:latest"
+    volumes:
+      - ${PWD}/${SVC_NAME}-test/src:/usr/src/app/src
+      - id_dist:/usr/src/app/dist
+      - test_nm_cache:/usr/src/app/node_modules
+    restart: always
+volumes:
+  id_dist:
+  id_nm_cache:
+  test_nm_cache:

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+./bin/deploy.sh test
+
+./bin/deploy.sh stop
